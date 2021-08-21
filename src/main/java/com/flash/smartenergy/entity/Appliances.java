@@ -4,15 +4,19 @@ import java.util.Date;
 
 public class Appliances {
 
-    String id;
+    private String id;
 
-    EBAPI ebapi; //back foreign key -- Mostly not needed
+    private EBAPI ebapi; //back foreign key -- Mostly not needed
 
-    String name;
+    private String name;
 
-    int watt;
+    private int watt;
 
-    Date createTime;
+    private Date createTime;
 
-    Date updateTime;
+    private Date updateTime;
+
+    private Boolean retired;
+
+
 }
