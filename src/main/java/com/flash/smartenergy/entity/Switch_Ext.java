@@ -1,5 +1,14 @@
 package com.flash.smartenergy.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Switch_Ext {
 
     private String id;
@@ -10,35 +19,4 @@ public class Switch_Ext {
 
     private Boolean retired;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Boolean getRetired() {
-        return retired;
-    }
-
-    public void setRetired(Boolean retired) {
-        this.retired = retired;
-    }
 }
