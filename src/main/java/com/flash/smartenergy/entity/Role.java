@@ -5,26 +5,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Role {
+@Table(name = "Role_TBL")
+public class Role extends AuditModel{
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 
     private String description;
 
-    private User[] users; // Many to Many
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private Boolean retired;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "userRole",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    private Set<User> users = new HashSet<User>(); // Many to Many
 
 }

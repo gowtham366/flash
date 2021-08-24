@@ -5,36 +5,50 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class User {
+@Table(name = "User_TBL")
+public class User extends AuditModel{
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private EBAPI[] ebapis;
+    @OneToMany(mappedBy = "user")
+    private Set<EBAPI> ebapis = new HashSet<EBAPI>();
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "credential_id",nullable = false)
+    private Credential credential;
 
     private String firstName;
 
     private String lastName;
 
+    @Email
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String mobile;
 
-    private Date dateOfReg;
+    @ManyToMany(mappedBy = "users")
+    private Set<Role> roles = new HashSet<Role>(); //Many to Many
 
-    private Role[] roles; //Many to Many
 
-    private Switch_Ext[] switches;
-
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "address_id",nullable = false)
     private Address address;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
-
-    private Boolean retired;
-
 }

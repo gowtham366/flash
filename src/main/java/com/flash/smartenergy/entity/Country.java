@@ -5,24 +5,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Country {
+@Table(name = "country_TBL")
+public class Country extends AuditModel{
 
-    private String id;
+    @Id
+    @Column(name = "country_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(unique = true,nullable = false)
     private String name;
 
-    private State[] states;
+    @OneToMany(mappedBy = "country")
+    private Set<State> states = new HashSet<State>();
 
-    private Date createTime;
-
-    private Date updateTime;
-
-    private Boolean retired;
-
+    @OneToOne(mappedBy = "country")
+    private Address address;
 }

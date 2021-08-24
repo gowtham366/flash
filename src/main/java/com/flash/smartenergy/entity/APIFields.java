@@ -4,18 +4,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class APIFields {
+@Entity(name = "APIFields_TBL")
+public class APIFields extends AuditModel{
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "apifields_id")
+    private Long id;
 
-    private EBAPI ebapi;//back foreign key
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ebapi_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private EBAPI ebapi;
 
     private Float current1;
 
@@ -31,14 +43,10 @@ public class APIFields {
 
     private int frequency;
 
+    @NotNull
     private Float totalUnitsConsumed;
 
     private Float hourlyUnitsConsumed;
 
     private Boolean isLastUpdatedData;
-
-    private Date createTime;
-
-    private Date updateTime;
-
 }
