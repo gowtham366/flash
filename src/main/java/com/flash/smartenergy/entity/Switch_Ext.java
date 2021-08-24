@@ -19,6 +19,7 @@ public class Switch_Ext extends AuditModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "switch_ext_id")
     private Long id;
 
     private String name;

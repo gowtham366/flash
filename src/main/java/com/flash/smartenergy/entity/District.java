@@ -28,7 +28,6 @@ public class District extends AuditModel{
     @Column(unique = true, nullable = false)
     private String name;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "state_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -36,5 +35,8 @@ public class District extends AuditModel{
 
     @OneToMany(mappedBy = "zone")
     private Set<Zone> zones = new HashSet<Zone>();
+
+    @OneToOne(mappedBy = "district")
+    private Address address;
 
 }

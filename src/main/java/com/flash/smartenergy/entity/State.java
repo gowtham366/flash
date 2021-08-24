@@ -37,4 +37,7 @@ public class State extends AuditModel{
     @OneToMany(mappedBy = "state")
     private Set<District> districts = new HashSet<District>();
 
+    @OneToOne(mappedBy = "state")
+    private Address address;
+
 }

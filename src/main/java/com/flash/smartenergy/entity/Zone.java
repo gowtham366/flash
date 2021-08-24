@@ -34,4 +34,7 @@ public class Zone extends AuditModel{
 
     @OneToOne(mappedBy = "zone")
     private EBAPI ebapi;
+
+    @OneToOne(mappedBy = "zone")
+    private Address address;
 }

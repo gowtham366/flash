@@ -26,7 +26,6 @@ public class EBAPI extends AuditModel{
     @Column(name = "ebapi_id")
     private Long id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -49,13 +48,16 @@ public class EBAPI extends AuditModel{
 
     private int phase;
 
-    @OneToMany(mappedBy = "ebapi")
+    @OneToMany(mappedBy = "ebapi", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<APIFields> apiFields = new HashSet<APIFields>();
 
-    @OneToMany(mappedBy = "ebapi")
+    @OneToMany(mappedBy = "ebapi", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Appliances> appliances = new HashSet<Appliances>();
 
-    @OneToMany(mappedBy = "ebapi")
+    @OneToMany(mappedBy = "ebapi", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Switch_Ext> switch_ext = new HashSet<Switch_Ext>();
 
 }

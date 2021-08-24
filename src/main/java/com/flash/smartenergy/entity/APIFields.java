@@ -23,7 +23,6 @@ public class APIFields extends AuditModel{
     @Column(name = "apifields_id")
     private Long id;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ebapi_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
