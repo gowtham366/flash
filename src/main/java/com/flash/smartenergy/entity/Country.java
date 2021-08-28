@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "country_TBL")
 public class Country extends AuditModel{
 
@@ -26,9 +27,13 @@ public class Country extends AuditModel{
     @Column(unique = true,nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "country")
     private Set<State> states = new HashSet<State>();
 
-    @OneToOne(mappedBy = "country")
+    @OneToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "country")
     private Address address;
 }

@@ -16,7 +16,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "Appliances_TBL")
+@Entity
+@Table(name = "Appliances_TBL")
 public class Appliances extends AuditModel{
 
     @Id
@@ -26,7 +27,7 @@ public class Appliances extends AuditModel{
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ebapi_id", nullable = false)
+    @JoinColumn(name = "ebapi_id",referencedColumnName = "ebapi_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private EBAPI ebapi; //back foreign key -- Mostly not needed
 

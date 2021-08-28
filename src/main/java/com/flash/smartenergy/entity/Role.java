@@ -14,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "Role_TBL")
 public class Role extends AuditModel{
 
@@ -26,7 +27,7 @@ public class Role extends AuditModel{
 
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
             name = "userRole",
             joinColumns = {@JoinColumn(name = "role_id")},

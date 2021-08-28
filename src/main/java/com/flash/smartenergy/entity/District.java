@@ -17,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "District_TBL")
 public class District extends AuditModel{
 
@@ -29,14 +30,18 @@ public class District extends AuditModel{
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "state_id", nullable = false)
+    @JoinColumn(name = "state_id", referencedColumnName = "state_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private State state; //back foreign key
 
-    @OneToMany(mappedBy = "zone")
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "district")
     private Set<Zone> zones = new HashSet<Zone>();
 
-    @OneToOne(mappedBy = "district")
+    @OneToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "district")
     private Address address;
 
 }

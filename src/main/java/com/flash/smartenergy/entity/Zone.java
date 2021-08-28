@@ -15,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "Zone_TBL")
 public class Zone extends AuditModel{
 
@@ -26,9 +27,8 @@ public class Zone extends AuditModel{
     @Column(unique = true, nullable = false)
     private String name;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "district_id", nullable = false)
+    @JoinColumn(name = "district_id",referencedColumnName = "district_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private District district;//Back foreign key
 

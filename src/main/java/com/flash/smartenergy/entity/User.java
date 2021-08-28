@@ -1,9 +1,12 @@
 package com.flash.smartenergy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,6 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "User_TBL")
 public class User extends AuditModel{
 
@@ -24,11 +28,13 @@ public class User extends AuditModel{
     @Column(name = "user_id")
     private Long id;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<EBAPI> ebapis = new HashSet<EBAPI>();
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "credential_id",nullable = false)
+    @JoinColumn(name = "credential_id",referencedColumnName = "credential_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Credential credential;
 
     private String firstName;
@@ -47,7 +53,8 @@ public class User extends AuditModel{
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "address_id",nullable = false)
+    @JoinColumn(name = "address_id",referencedColumnName = "address_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Address address;
 
     @Temporal(TemporalType.TIMESTAMP)

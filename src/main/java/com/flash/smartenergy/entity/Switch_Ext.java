@@ -14,6 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "Switch_Ext_TBL")
 public class Switch_Ext extends AuditModel{
 
@@ -28,7 +29,7 @@ public class Switch_Ext extends AuditModel{
     private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ebapi_id", nullable = false)
+    @JoinColumn(name = "ebapi_id",referencedColumnName = "ebapi_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private EBAPI ebapi;
 }

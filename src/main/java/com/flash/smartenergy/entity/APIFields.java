@@ -15,7 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "APIFields_TBL")
+@Entity
+@Table(name = "APIFields_TBL")
 public class APIFields extends AuditModel{
 
     @Id
@@ -24,7 +25,7 @@ public class APIFields extends AuditModel{
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ebapi_id", nullable = false)
+    @JoinColumn(name = "ebapi_id", referencedColumnName = "ebapi_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private EBAPI ebapi;
 

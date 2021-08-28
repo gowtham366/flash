@@ -18,6 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 @Table(name = "EBAPI_TBL")
 public class EBAPI extends AuditModel{
 
@@ -26,9 +27,9 @@ public class EBAPI extends AuditModel{
     @Column(name = "ebapi_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id", nullable = false)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     private String name;
@@ -40,7 +41,7 @@ public class EBAPI extends AuditModel{
     private String apiKey;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "zone_id",nullable = false)
+    @JoinColumn(name = "zone_id", referencedColumnName = "zone_id",nullable = false)
     private Zone zone;
 
     @ColumnDefault("true") //TODO:Update this at last to false

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +15,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name="Address_TBL")
+@Entity
+@Table(name = "Address_TBL")
 public class Address extends AuditModel{
 
     @Id
@@ -28,31 +31,32 @@ public class Address extends AuditModel{
 
     private String addressLine2;
 
-    @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "country_id",nullable = false)
+    @JoinColumn(name = "country_id",referencedColumnName = "country_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Country country;
 
-    @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "state_id",nullable = false)
+    @JoinColumn(name = "state_id",referencedColumnName = "state_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private State state;
 
-    @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "district_id",nullable = false)
+    @JoinColumn(name = "district_id",referencedColumnName = "district_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private District district;
 
-    @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "zone_id",nullable = false)
+    @JoinColumn(name = "zone_id",referencedColumnName = "zone_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Zone zone;
 
     @NotNull
     @Size(min = 6,max = 6)
     private String zipCode;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,mappedBy = "address")
     private User user;
 
 }
