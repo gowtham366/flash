@@ -1,13 +1,14 @@
 package com.flash.smartenergy;
 
+import com.flash.smartenergy.config.JpaAuditingConfiguration;
 import com.flash.smartenergy.entity.test.User_Ext;
 import com.flash.smartenergy.repository.JWTUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SpringBootApplication
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef="auditorProvider")
 public class SmartenergyApplication {
 
 	@Autowired
@@ -41,4 +42,10 @@ public class SmartenergyApplication {
 	public PasswordEncoder passwordEncoder(){
 		return NoOpPasswordEncoder.getInstance();
 	}
+
+	@Bean
+	public AuditorAware<String> auditorProvider() {
+		return new JpaAuditingConfiguration();
+	}
+
 }

@@ -16,7 +16,7 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "Role_TBL")
-public class Role extends AuditModel{
+public class Role extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

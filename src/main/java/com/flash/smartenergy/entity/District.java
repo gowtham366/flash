@@ -19,7 +19,7 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "District_TBL")
-public class District extends AuditModel{
+public class District extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,9 +39,9 @@ public class District extends AuditModel{
             mappedBy = "district")
     private Set<Zone> zones = new HashSet<Zone>();
 
-    @OneToOne(cascade = CascadeType.ALL,
+/*    @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "district")
-    private Address address;
+    private Address address;*/
 
 }

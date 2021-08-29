@@ -21,7 +21,7 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "User_TBL")
-public class User extends AuditModel{
+public class User extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

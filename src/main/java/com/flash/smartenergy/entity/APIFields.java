@@ -17,7 +17,7 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name = "APIFields_TBL")
-public class APIFields extends AuditModel{
+public class APIFields extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

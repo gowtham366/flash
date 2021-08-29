@@ -16,7 +16,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "Switch_Ext_TBL")
-public class Switch_Ext extends AuditModel{
+public class Switch_Ext extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

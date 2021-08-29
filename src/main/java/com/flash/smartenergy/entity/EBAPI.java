@@ -20,7 +20,7 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "EBAPI_TBL")
-public class EBAPI extends AuditModel{
+public class EBAPI extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

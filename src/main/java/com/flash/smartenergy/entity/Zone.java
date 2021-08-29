@@ -17,7 +17,7 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name = "Zone_TBL")
-public class Zone extends AuditModel{
+public class Zone extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,6 @@ public class Zone extends AuditModel{
     @OneToOne(mappedBy = "zone")
     private EBAPI ebapi;
 
-    @OneToOne(mappedBy = "zone")
-    private Address address;
+    /*@OneToOne(mappedBy = "zone")
+    private Address address;*/
 }

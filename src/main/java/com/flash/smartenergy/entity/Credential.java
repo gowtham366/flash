@@ -17,7 +17,7 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name = "Credential_TBL")
-public class Credential extends AuditModel {
+public class Credential extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

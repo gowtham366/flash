@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @ToString
 @Entity
 @Table(name = "Address_TBL")
-public class Address extends AuditModel{
+public class Address extends AuditModel<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
