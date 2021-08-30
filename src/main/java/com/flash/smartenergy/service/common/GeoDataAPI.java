@@ -26,25 +26,28 @@ public class GeoDataAPI {
         return countryRepository.findAll();
     }
 
-    @GetMapping("country/getStates/{countryName}")
-    public State[] findByName(@PathVariable("countryName")
-                                      String countryName) {
+    @PostMapping("country/getStatesByCountry")
+    public List<State> getStatesByCountryName(@RequestBody String countryName) {
+        /*public State[] getStatesByCountryName(@PathVariable("countryName")
+                String countryName) */
         Country country = countryRepository.findByName(countryName);
-        State[] states = new State[country.getStates().size()];
-        return country.getStates().toArray(states);
+        List<State> states = stateRepository.findByCountry(country);
+        return states;
     }
 
     @PutMapping("country/addCountry")
-    public Country addCountry(@RequestBody Country country, Authentication authentication){
-        Country response;
+    public Country addCountry(@RequestBody Country country){
+        final Country response;
         if(validateCountry(country)){
-            response = new Country();
-            response.setName(country.getName());
-
-            /*State state = new State();
-            state.setName(country.getStates());
-            response.setStates(country.getStates());*/
-            response = countryRepository.save(response);
+            Country country1 = new Country();
+            country1.setName(country.getName());
+            response = countryRepository.save(country1);
+            country.getStates().stream().forEach((elt)->{
+                State state = new State();
+                state.setName(elt.getName());
+                state.setCountry(response);
+                stateRepository.save(state);
+            });
         }else{
             throw new RuntimeException("Country already exist in DB");
         }
