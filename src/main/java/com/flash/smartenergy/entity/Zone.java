@@ -1,5 +1,6 @@
 package com.flash.smartenergy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Zone extends AuditModel<String>{
     @Column(unique = true, nullable = false)
     private String name;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "district_id",referencedColumnName = "district_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

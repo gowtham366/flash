@@ -24,7 +24,7 @@ public class JpaAuditingConfiguration implements AuditorAware<String>{
         if (authentication == null ||
                 !authentication.isAuthenticated() ||
                 authentication instanceof AnonymousAuthenticationToken) {
-            return Optional.ofNullable("default");
+            return Optional.ofNullable("sys");
         }
         return Optional.ofNullable(((CustomUserDetails)authentication.getPrincipal()).getUsername());
     }

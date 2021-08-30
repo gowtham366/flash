@@ -1,5 +1,7 @@
 package com.flash.smartenergy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -26,18 +29,20 @@ public class District extends AuditModel<String>{
     @Column(name = "district_id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "state_id", referencedColumnName = "state_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private State state; //back foreign key
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "district")
-    private Set<Zone> zones = new HashSet<Zone>();
+    private List<Zone> zones;// = new HashSet<Zone>();
 
 /*    @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,

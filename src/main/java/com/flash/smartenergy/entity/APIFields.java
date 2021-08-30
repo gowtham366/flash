@@ -1,5 +1,6 @@
 package com.flash.smartenergy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class APIFields extends AuditModel<String>{
     @Column(name = "apifields_id")
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ebapi_id", referencedColumnName = "ebapi_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

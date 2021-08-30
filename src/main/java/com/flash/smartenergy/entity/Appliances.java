@@ -1,5 +1,6 @@
 package com.flash.smartenergy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Appliances extends AuditModel<String>{
     @Column(name = "appliances_id")
     private Long id;
 
+    @JsonBackReference
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ebapi_id",referencedColumnName = "ebapi_id", nullable = false)
@@ -35,7 +37,6 @@ public class Appliances extends AuditModel<String>{
     private String name;
 
     @NotNull
-    @ColumnDefault("0")
-    private int watt;
+    private int watt = 0;
 
 }

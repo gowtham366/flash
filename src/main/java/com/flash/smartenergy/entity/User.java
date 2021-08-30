@@ -1,6 +1,7 @@
 package com.flash.smartenergy.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class User extends AuditModel<String>{
     @Column(name = "user_id")
     private Long id;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<EBAPI> ebapis = new HashSet<EBAPI>();

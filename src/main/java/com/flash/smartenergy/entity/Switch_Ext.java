@@ -1,5 +1,6 @@
 package com.flash.smartenergy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Switch_Ext extends AuditModel<String>{
     @ColumnDefault("false")
     private Boolean status;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ebapi_id",referencedColumnName = "ebapi_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
