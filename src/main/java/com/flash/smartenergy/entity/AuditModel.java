@@ -48,5 +48,6 @@ public abstract class AuditModel<U> implements Serializable {
     private U updatedUser;
 
     @NotNull
+    @ColumnDefault("false")
     private Boolean retired = false;
 }

@@ -1,12 +1,15 @@
 package com.flash.smartenergy.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.flash.smartenergy.repository.DistrictRepository;
+import com.flash.smartenergy.repository.ZoneRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,9 +37,12 @@ public class Zone extends AuditModel<String>{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private District district;//Back foreign key
 
+/*
     @OneToOne(mappedBy = "zone")
     private EBAPI ebapi;
+*/
 
     /*@OneToOne(mappedBy = "zone")
     private Address address;*/
+
 }

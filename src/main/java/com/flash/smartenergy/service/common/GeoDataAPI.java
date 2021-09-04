@@ -1,9 +1,14 @@
 package com.flash.smartenergy.service.common;
 
 import com.flash.smartenergy.entity.Country;
+import com.flash.smartenergy.entity.District;
 import com.flash.smartenergy.entity.State;
+import com.flash.smartenergy.entity.Zone;
 import com.flash.smartenergy.repository.CountryRepository;
+import com.flash.smartenergy.repository.DistrictRepository;
 import com.flash.smartenergy.repository.StateRepository;
+import com.flash.smartenergy.repository.ZoneRepository;
+import com.flash.smartenergy.service.common.dto.GeoDataDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +25,14 @@ public class GeoDataAPI {
 
     @Autowired
     StateRepository stateRepository;
+
+
+    @Autowired
+    ZoneRepository zoneRepository;
+
+    @Autowired
+    DistrictRepository districtRepository;
+
 
     @GetMapping("country/getAllCountries")
     public List<Country> getAllCoutries(){
@@ -71,4 +84,41 @@ public class GeoDataAPI {
         isExist = Objects.nonNull(country);
         return isExist;
     }
+
+
+    @PutMapping("district/addDistrict")
+    public District addDistrictToState(@RequestBody GeoDataDTO geoDataDTO){
+        District district1 = new District();
+        if(geoDataDTO.getParentId() != null){
+            State state = stateRepository.getById(geoDataDTO.getParentId());
+            district1.setState(state);
+            district1.setName(geoDataDTO.getDistrict().getName());
+            district1 = districtRepository.save(district1);
+        }else if(geoDataDTO.getParentName() != null){
+            State state = stateRepository.findByName(geoDataDTO.getParentName());
+            district1.setState(state);
+            district1.setName(geoDataDTO.getDistrict().getName());
+            district1 = districtRepository.save(district1);
+        }
+        return district1;
+    }
+
+    @PutMapping("zone/addZone")
+    public Zone addZoneToDistrict(@RequestBody GeoDataDTO geoDataDTO){
+        Zone zone1 = new Zone();
+        if(geoDataDTO.getParentId() != null){
+            District district = districtRepository.getById(geoDataDTO.getParentId());
+            zone1.setDistrict(district);
+            zone1.setName(geoDataDTO.getZone().getName());
+            zone1 = zoneRepository.save(zone1);
+        }else if(geoDataDTO.getParentName() != null){
+            District district = districtRepository.findByName(geoDataDTO.getParentName());
+            zone1.setDistrict(district);
+            zone1.setName(geoDataDTO.getZone().getName());
+            zone1 = zoneRepository.save(zone1);
+        }
+        return zone1;
+    }
+
+
 }
